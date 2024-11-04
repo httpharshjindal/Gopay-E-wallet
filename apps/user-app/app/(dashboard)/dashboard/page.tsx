@@ -3,8 +3,7 @@ import { P2PTransactions } from "../../../components/P2PTransactions";
 import { UserProfile } from "../../../components/UserProfile";
 import { getBalance } from "../../lib/actions/getBalance";
 import { getp2pTransactions } from "../../lib/actions/getp2pTransactions";
-import { authOptions } from "../../lib/auth";
-import { RecentContact } from "../../../components/RecentContact";
+import { authOptions } from "../../lib/authOptions";
 
 export default async () => {
   const balance = await getBalance();
@@ -13,10 +12,7 @@ export default async () => {
 
   return (
     <div className="p-5 gap-2 flex h-screen flex-col sm:flex-row">
-      <div className="w-full h-full flex flex-col gap-5 sm:w-1/2 ">
-        <div className="h-28">
-          <RecentContact transactions={transactions}/>
-        </div>
+      <div className="w-full h-full flex flex-col gap-5 sm:w-1/2 "> 
         <UserProfile balance={balance} />
       </div>
       <div className="w-full sm:w-1/2 h-4/5 bg-gradient-to-t from-slate-300 from-1% to-15% ">
@@ -26,8 +22,6 @@ export default async () => {
           transactions={transactions}
         />
       </div>
-
-      {/* {JSON.stringify(user)} */}
     </div>
   );
 };

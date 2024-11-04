@@ -9,9 +9,9 @@ export default async function () {
   const balance = await getBalance();
   const transactions = await getOnRampTransactions();
   return (
-    <div className="p-5 w-full">
+    <div className="p-5 w-full ">
       <BoldHeading title="Transfer" />
-      <div className="flex">
+      <div className="flex w-full gap-2 h-screen flex-col sm:flex-row">
         <div className="w-1/2">
           <AddMoney />
         </div>

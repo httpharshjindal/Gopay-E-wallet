@@ -1,7 +1,13 @@
-export const Avatar = ({ url }: { url?: string }) => {
+export const Avatar = ({
+  url,
+  className,
+}: {
+  url?: string;
+  className: string;
+}) => {
   return (
     <div
-      className="w-10 h-10 flex justify-center items-center m-1  rounded-full "
+      className={`${className} w-10 h-10 flex justify-center items-center rounded-full`}
     >
       {url ? (
         <img src="" alt="" />
@@ -10,7 +16,7 @@ export const Avatar = ({ url }: { url?: string }) => {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="gray"
-          className="size-12"
+          className="h-full w-full"
         >
           <path
             fill-rule="evenodd"

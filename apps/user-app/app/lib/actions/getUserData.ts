@@ -1,7 +1,7 @@
 "use server";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth";
+import { authOptions } from "../authOptions";
 import prisma from "@repo/db/prisma";
 
 export const getUserData = async () => {
@@ -10,6 +10,9 @@ export const getUserData = async () => {
   const user = await prisma.user.findFirst({
     where: {
       id: Number(session?.user?.id),
+    },
+    include:{
+      Balance:true
     }
   });
 

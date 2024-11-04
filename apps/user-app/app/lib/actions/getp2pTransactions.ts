@@ -1,6 +1,6 @@
 "use server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth";
+import { authOptions } from "../authOptions";
 import prisma from "@repo/db/prisma";
 
 export async function getp2pTransactions() {

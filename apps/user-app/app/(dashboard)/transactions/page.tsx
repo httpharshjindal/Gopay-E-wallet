@@ -2,7 +2,7 @@ import { P2PTransactions } from "../../../components/P2PTransactions";
 import { BoldHeading } from "@repo/ui/boldHeading";
 import { getp2pTransactions } from "../../lib/actions/getp2pTransactions";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../lib/auth";
+import { authOptions } from "../../lib/authOptions";
 
 export default async () => {
   const session = await getServerSession(authOptions);

@@ -1,7 +1,7 @@
 "use server";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth";
+import { authOptions } from "../authOptions";
 import prisma from "@repo/db/prisma";
 import { preloadStyle } from "next/dist/server/app-render/entry-base";
 

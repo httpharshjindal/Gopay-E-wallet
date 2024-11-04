@@ -38,7 +38,7 @@ export const UserProfile = ({
           <h2>Secure Payment</h2>
         </div>
       </div>
-      <div className="flex justify-center items-center ">
+      <div className="flex justify-center items-center gap-2 ">
         <Button
           onClick={() => {
             router.push("/p2p");

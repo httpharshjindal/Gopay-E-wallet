@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Avatar } from "./Avatar";
 import { Button } from "./button";
+import { Avatar } from "./avatar";
 
 interface AppbarProps {
   user?: {
@@ -20,7 +20,7 @@ export const Appbar = ({
 }: AppbarProps) => {
   const [ProfileDropDown, setProfileDropDown] = useState(false);
   return (
-    <div className="flex justify-between items-center border-b px-4 relative py-1">
+    <div className="flex justify-between items-center border-b px-4 relative py-1 h-14">
       <div className="text-lg flex flex-col justify-center">
         <img
           src="https://i.pinimg.com/originals/02/8b/92/028b92bb43a9f6c80e26c3ea403cb698.png"
@@ -35,7 +35,7 @@ export const Appbar = ({
           console.log(ProfileDropDown);
         }}
       >
-        {!user?<Button onClick={onSignin}>Login</Button>: <Avatar /> }
+        {user && <Avatar /> }
       </div>
 
       {ProfileDropDown && (

@@ -1,7 +1,7 @@
 "use server";
 import prisma from "@repo/db/prisma";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth";
+import { authOptions } from "../authOptions";
 
 export const createOnRampTransaction = async ({
   provider,
