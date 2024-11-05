@@ -38,7 +38,6 @@ export const sendp2p = async (to: string, amount: number) => {
         where: {
           userId: Number(from)
         },
-        lock: { mode: 'UPDATE' } // Using optimistic concurrency
       });
 
       if (!fromBalance || fromBalance.amount < amount * 100) {
