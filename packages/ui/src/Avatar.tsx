@@ -3,11 +3,11 @@ export const Avatar = ({
   className,
 }: {
   url?: string;
-  className: string;
+  className?: string;
 }) => {
   return (
     <div
-      className={`${className} w-10 h-10 flex justify-center items-center rounded-full`}
+      className={`${className?className:""} w-10 h-10 flex justify-center items-center rounded-full`}
     >
       {url ? (
         <img src="" alt="" />
