@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Button } from "./button";
-import { Avatar } from "./avatar";
-   
-
+import { Avtar } from "./avtar";
 
 
 interface AppbarProps {
@@ -38,7 +36,7 @@ export const Appbar = ({
           console.log(ProfileDropDown);
         }}
       >
-        {user && <Avatar /> }
+        {user && <Avtar /> }
       </div>
 
       {ProfileDropDown && (

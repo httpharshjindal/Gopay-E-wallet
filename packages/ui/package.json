@@ -11,7 +11,8 @@
     "./boldHeading":"./src/boldHeading.tsx",
     "./select":"./src/select.tsx",
     "./googleButton":"./src/googleButton.tsx",
-    "./gitHubButton":"./src/gitHubButton.tsx"
+    "./gitHubButton":"./src/gitHubButton.tsx",
+    "./avtar":"./src/avtar.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

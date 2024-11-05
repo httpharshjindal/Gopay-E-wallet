@@ -1,3 +1,4 @@
+import { Avtar } from "@repo/ui/avtar";
 
 
 export const Profile = ({ userDetails }: { userDetails: any }) => {
@@ -45,7 +46,7 @@ export const Profile = ({ userDetails }: { userDetails: any }) => {
     <div className="w-72 h-72  flex  items-center flex-col bg-zinc-50 justify-between border">
       <div className="w-full h-1/4 relative">
         <div className="z-10 bg-white w-24 h-24 rounded-full absolute top-20 left-2/4 -translate-x-1/2 -translate-y-1/2 overflow-hidden flex justify-center items-center">
-          <Avatar className="h-full w-full"  />
+          <Avtar className="h-full w-full"  />
         </div>
 
         <img
