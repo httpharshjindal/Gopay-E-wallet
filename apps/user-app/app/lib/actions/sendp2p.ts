@@ -3,15 +3,15 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../authOptions";
 import prisma from "@repo/db/prisma";
-import { preloadStyle } from "next/dist/server/app-render/entry-base";
+
 
 export const sendp2p = async (to: string, amount: number) => {
   const session = await getServerSession(authOptions);
   const from = session?.user?.id;
 
-  if (!to && !amount) {
+  if (!to || !amount) {
     return {
-      message: "fields can not be empty",
+      message: "fields cannot be empty",
     };
   }
   if (!from) {
@@ -19,6 +19,7 @@ export const sendp2p = async (to: string, amount: number) => {
       message: "error while sending",
     };
   }
+
   const toUser = await prisma.user.findFirst({
     where: {
       number: to.toString(),
@@ -28,11 +29,11 @@ export const sendp2p = async (to: string, amount: number) => {
   if (!toUser) {
     return {
       message: "user not found",
-      status:401
+      status: 401,
     };
   }
 
-  const transaction = await prisma.$transaction(async (tx) => {
+  const transaction = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
     await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${Number(from)} FOR UPDATE`;
     const fromBalance = await tx.balance.findFirst({
       where: {
@@ -42,7 +43,7 @@ export const sendp2p = async (to: string, amount: number) => {
     if (!fromBalance || fromBalance.amount < amount * 100) {
       return {
         message: "insufficient balance",
-        status:404
+        status: 404,
       };
     }
 
@@ -79,10 +80,9 @@ export const sendp2p = async (to: string, amount: number) => {
 
     return {
       message: "transaction successful",
-      status:200
+      status: 200,
     };
-
   });
 
-  return transaction
+  return transaction;
 };
