@@ -9,6 +9,9 @@
     "postinstall": "prisma generate",
     "db:generate":"cd packages/db && npx prisma generate && cd ../.."
   },
+  "prisma": {
+  "schema": "./packages/db/prisma/schema.prisma"
+  },
   "devDependencies": {
     "prettier": "^3.2.5",
     "turbo": "^2.1.3",
