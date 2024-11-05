@@ -4,8 +4,8 @@ import { Button } from "@repo/ui/button";
 import { useRouter } from "next/navigation";
 
 interface UserType {
-  name: string;
-  number: number;
+  name: string | null; // Allow name to be null
+  number: string;
 }
 
 interface Transaction {
@@ -14,8 +14,8 @@ interface Transaction {
   timestamp: Date;
   fromUserId: number;
   toUserId: number;
-  fromUser?: UserType;
-  toUser?: UserType;
+  fromUser?: UserType; // Optional UserType
+  toUser?: UserType;   // Optional UserType
 }
 
 interface P2PTransactionsProps {
@@ -52,16 +52,16 @@ export const P2PTransactions = ({
                 <div>
                   <h2>
                     {t.fromUserId === session.user.id
-                      ? t.toUser?.name || "Anonymous"
+                      ? t.toUser?.name || "Anonymous"  // Handle null name
                       : t.fromUser?.name || "Anonymous"}
                   </h2>
                   <h2>
                     {t.fromUserId === session.user.id
-                      ? t.toUser?.number
-                      : t.fromUser?.number}
+                      ? t.toUser?.number || "Unknown"  // Handle missing number
+                      : t.fromUser?.number || "Unknown"}
                   </h2>
                   <div className="text-slate-600 text-xs">
-                    {t.timestamp?.toDateString()}
+                    {t.timestamp?.toDateString() || "Date unavailable"}  // Handle missing date
                   </div>
                 </div>
                 <div className="flex flex-col justify-center items-end">
