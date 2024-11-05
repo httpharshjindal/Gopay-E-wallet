@@ -10,7 +10,6 @@
     "./textInput":"./src/textInput.tsx",
     "./boldHeading":"./src/boldHeading.tsx",
     "./select":"./src/select.tsx",
-    "./Avatar":"./src/Avatar.tsx",
     "./googleButton":"./src/googleButton.tsx",
     "./gitHubButton":"./src/gitHubButton.tsx"
   },
