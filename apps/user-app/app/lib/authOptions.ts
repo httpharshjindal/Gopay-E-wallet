@@ -1,6 +1,7 @@
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { TransactionClient } from "@prisma/client";
 import prisma from "@repo/db/prisma";
 import bcrypt from "bcrypt";
 
@@ -91,7 +92,7 @@ export const authOptions = {
                     }
 
                     const hashedPassword = await bcrypt.hash(credentials.password, 10);
-                    const user = await prisma.$transaction(async (tx) => {
+                    const user = await prisma.$transaction(async (tx:TransactionClient) => {
                         const newUser = await tx.user.create({
                             data: {
                                 name: credentials.name,
