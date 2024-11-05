@@ -4,7 +4,7 @@ export const GitHubButton = () => {
     <div
       className="w-full my-2 h-12 group rounded-lg bg-black text-white flex gap-2 justify-center items-center hover:bg-stone-500 hover:text-black"
       onClick={()=>{
-        signIn("google",{
+        signIn("github",{
             callbackUrl:"dashboard",
             redirect:false
         })
