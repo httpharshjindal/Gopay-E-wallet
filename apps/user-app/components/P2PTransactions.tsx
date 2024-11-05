@@ -52,13 +52,13 @@ export const P2PTransactions = ({
                 <div>
                   <h2>
                     {t.fromUserId === session.user.id
-                      ? t.toUser?.name || "Anonymous"  // Handle null name
-                      : t.fromUser?.name || "Anonymous"}
+                      ? t.toUser?.name   // Handle null name
+                      : t.fromUser?.name }
                   </h2>
                   <h2>
                     {t.fromUserId === session.user.id
-                      ? t.toUser?.number || "Unknown"  // Handle missing number
-                      : t.fromUser?.number || "Unknown"}
+                      ? t.toUser?.number  // Handle missing number
+                      : t.fromUser?.number }
                   </h2>
                   <div className="text-slate-600 text-xs">
                     {t.timestamp?.toDateString() || "Date unavailable"}  // Handle missing date
