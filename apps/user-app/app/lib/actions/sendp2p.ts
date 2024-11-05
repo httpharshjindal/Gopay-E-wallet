@@ -3,7 +3,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../authOptions";
 import prisma from "@repo/db/prisma";
-import { preloadStyle } from "next/dist/server/app-render/entry-base";
 
 export const sendp2p = async (to: string, amount: number) => {
   const session = await getServerSession(authOptions);
