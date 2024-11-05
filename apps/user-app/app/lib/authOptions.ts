@@ -91,7 +91,7 @@ export const authOptions = {
                     }
 
                     const hashedPassword = await bcrypt.hash(credentials.password, 10);
-                    const user = await prisma.$transaction(async (prisma) => {
+                    const user = await prisma.$transaction(async () => {
                         const newUser = await prisma.user.create({
                             data: {
                                 name: credentials.name,
