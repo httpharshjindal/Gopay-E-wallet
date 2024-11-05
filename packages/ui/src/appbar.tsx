@@ -12,11 +12,6 @@ interface AppbarProps {
   onSignout: any;
 }
 
-
-
-
-
-
 export const Appbar = ({
   user,
   onSignin,
@@ -70,3 +65,6 @@ export const Appbar = ({
     </div>
   );
 };
+
+
+
