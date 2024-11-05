@@ -4,8 +4,8 @@ import { Button } from "@repo/ui/button";
 import { useRouter } from "next/navigation";
 
 interface UserType {
-  name: string;
-  number: number;
+  name: string | null; // Allow name to be null
+  number: string;
 }
 
 interface Transaction {
