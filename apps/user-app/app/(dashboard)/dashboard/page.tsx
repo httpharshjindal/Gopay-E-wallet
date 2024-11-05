@@ -16,6 +16,7 @@ export default async () => {
         <UserProfile balance={balance} />
       </div>
       <div className="w-full sm:w-1/2 h-4/5 bg-gradient-to-t from-slate-300 from-1% to-15% ">
+      <h1>{JSON.stringify(transactions)}</h1>
         <P2PTransactions
           enableScroll={true}
           session={session}

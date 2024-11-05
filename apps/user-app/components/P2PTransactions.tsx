@@ -51,12 +51,12 @@ export const P2PTransactions = ({
               <div key={t.id} className="flex justify-between mb-2 p-2 border-b">
                 <div>
                   <h2>
-                    {t.fromUserId === session.user.id
+                    {t.fromUserId == session.user.id
                       ? t.toUser?.name || "Anonymous"
                       : t.fromUser?.name || "Anonymous"}
                   </h2>
                   <h2>
-                    {t.fromUserId === session.user.id
+                    {t.fromUserId == session.user.id
                       ? t.toUser?.number
                       : t.fromUser?.number}
                   </h2>
@@ -67,10 +67,10 @@ export const P2PTransactions = ({
                 <div className="flex flex-col justify-center items-end">
                   <div
                     className={`text-xl ${
-                      t.fromUserId === session.user.id ? "text-red-700" : "text-green-600"
+                      t.fromUserId == session.user.id ? "text-red-700" : "text-green-600"
                     }`}
                   >
-                    {t.fromUserId === session.user.id ? `- Rs ${t.amount}` : `+ Rs ${t.amount}`}
+                    {t.fromUserId == session.user.id ? `- Rs ${t.amount}` : `+ Rs ${t.amount}`}
                   </div>
                 </div>
               </div>
