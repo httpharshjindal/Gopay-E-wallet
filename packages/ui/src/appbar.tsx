@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "./button";
-import { Avatar } from "./avatar";
+import { Avatar } from "./Avatar";
    
 
 
