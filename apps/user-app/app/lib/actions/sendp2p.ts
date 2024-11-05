@@ -84,9 +84,17 @@ export const sendp2p = async (to: string, amount: number) => {
 
     return transaction;
   } catch (error) {
-    return {
-      message: error.message || "Transaction failed",
-      status: 500,
-    };
+    if (error instanceof Error) {
+      return {
+        message: error.message || "Transaction failed",
+        status: 500,
+      };
+    } else {
+      return {
+        message: "Transaction failed",
+        status: 500,
+      };
+    }
   }
 };
+
