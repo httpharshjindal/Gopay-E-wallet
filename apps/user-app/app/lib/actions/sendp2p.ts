@@ -2,7 +2,7 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "../authOptions";
-import prisma, { Prisma } from "@repo/db/prisma"; // Import Prisma for type
+import prisma from "@repo/db/prisma"; // Import Prisma for type
 
 export const sendp2p = async (to: string, amount: number) => {
   const session = await getServerSession(authOptions);
