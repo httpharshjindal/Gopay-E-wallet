@@ -2,10 +2,7 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "../authOptions";
-import { PrismaClient, TransactionClient } from "@prisma/client"; // Import PrismaClient and TransactionClient
-
-const prisma = new PrismaClient(); // Initialize PrismaClient
-
+import prisma from "@repo/db/prisma";
 export const sendp2p = async (to: string, amount: number) => {
   const session = await getServerSession(authOptions);
   const from = session?.user?.id;
@@ -35,9 +32,9 @@ export const sendp2p = async (to: string, amount: number) => {
   }
 
   try {
-    const transaction = await prisma.$transaction(async (tx: TransactionClient) => {
+    const transaction = await prisma.$transaction(async () => {
       // Lock the balance for update
-      const fromBalance = await tx.balance.findFirst({
+      const fromBalance = await prisma.balance.findFirst({
         where: {
           userId: Number(from)
         },
@@ -48,7 +45,7 @@ export const sendp2p = async (to: string, amount: number) => {
         throw new Error("Insufficient balance");
       }
 
-      await tx.balance.update({
+      await prisma.balance.update({
         where: {
           userId: Number(from)
         },
@@ -59,7 +56,7 @@ export const sendp2p = async (to: string, amount: number) => {
         },
       });
 
-      await tx.balance.update({
+      await prisma.balance.update({
         where: {
           userId: Number(toUser.id)
         },
@@ -70,7 +67,7 @@ export const sendp2p = async (to: string, amount: number) => {
         },
       });
 
-      await tx.p2pTransfer.create({
+      await prisma.p2pTransfer.create({
         data: {
           amount: amount,
           timestamp: new Date(),
