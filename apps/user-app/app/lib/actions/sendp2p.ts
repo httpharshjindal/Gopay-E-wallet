@@ -2,8 +2,9 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "../authOptions";
-import { TransactionClient } from "@prisma/client"; // Import PrismaClient and TransactionClient
-import prisma from "@repo/db/prisma";
+import { PrismaClient, TransactionClient } from "@prisma/client"; // Import PrismaClient and TransactionClient
+
+const prisma = new PrismaClient(); // Initialize PrismaClient
 
 export const sendp2p = async (to: string, amount: number) => {
   const session = await getServerSession(authOptions);
@@ -40,7 +41,7 @@ export const sendp2p = async (to: string, amount: number) => {
         where: {
           userId: Number(from)
         },
-        lock: { mode: 'UPDATE' }, // Using optimistic concurrency
+        lock: { mode: 'UPDATE' } // Using optimistic concurrency
       });
 
       if (!fromBalance || fromBalance.amount < amount * 100) {
@@ -61,3 +62,34 @@ export const sendp2p = async (to: string, amount: number) => {
       await tx.balance.update({
         where: {
           userId: Number(toUser.id)
+        },
+        data: {
+          amount: {
+            increment: amount * 100
+          },
+        },
+      });
+
+      await tx.p2pTransfer.create({
+        data: {
+          amount: amount,
+          timestamp: new Date(),
+          fromUserId: Number(from),
+          toUserId: toUser.id,
+        },
+      });
+
+      return {
+        message: "Transaction successful",
+        status: 200,
+      };
+    });
+
+    return transaction;
+  } catch (error) {
+    return {
+      message: error.message || "Transaction failed",
+      status: 500,
+    };
+  }
+};
