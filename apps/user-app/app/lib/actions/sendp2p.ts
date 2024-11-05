@@ -11,18 +11,18 @@ export const sendp2p = async (to: string, amount: number) => {
 
   if (!to || !amount) {
     return {
-      message: "Fields cannot be empty",
+      message: "Fields cannot be empty"
     };
   }
   if (!from) {
     return {
-      message: "Error while sending",
+      message: "Error while sending"
     };
   }
 
   const toUser = await prisma.user.findFirst({
     where: {
-      number: to.toString(),
+      number: to.toString()
     },
   });
 
@@ -38,7 +38,7 @@ export const sendp2p = async (to: string, amount: number) => {
       // Lock the balance for update
       const fromBalance = await tx.balance.findFirst({
         where: {
-          userId: Number(from),
+          userId: Number(from)
         },
         lock: { mode: 'UPDATE' }, // Using optimistic concurrency
       });
@@ -49,15 +49,15 @@ export const sendp2p = async (to: string, amount: number) => {
 
       await tx.balance.update({
         where: {
-          userId: Number(from),
+          userId: Number(from)
         },
         data: {
           amount: {
-            decrement: amount * 100,
+            decrement: amount * 100
           },
         },
       });
 
       await tx.balance.update({
         where: {
-          userId: Number(toUser.id),
+          userId: Number(toUser.id)
