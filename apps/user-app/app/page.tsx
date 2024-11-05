@@ -7,6 +7,6 @@ export default async function Page() {
   if (session?.user) {
     redirect("/dashboard");
   } else {
-    redirect(`${process.env.NEXTAUTH_URL}/api/auth/signin`);
+    redirect(`auth/signup`);
   }
 }
