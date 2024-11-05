@@ -1,4 +1,4 @@
-import { Avatar } from "@repo/ui/avatar";
+import { Avatar } from "@repo/ui/Avatar";
 
 export const Profile = ({ userDetails }: { userDetails: any }) => {
   const data = {
