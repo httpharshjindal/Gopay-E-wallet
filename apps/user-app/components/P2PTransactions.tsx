@@ -40,7 +40,7 @@ export const P2PTransactions = ({
             className={`pt-2 ${enableScroll && " h-full overflow-y-scroll bg-gradient-to-t from-slate-300 from-1% to-15%"}`}
           >
             {(enableScroll ? transactions?.slice(0, 8) : transactions)?.map(
-              (t) => (
+              (t:any) => (
                 <div className="flex justify-between mb-2 p-2 border-b">
                   <div>
                     <div>
