@@ -2,8 +2,7 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "../authOptions";
-import prisma from "@repo/db/prisma";
-
+import prisma, { Prisma } from "@repo/db/prisma"; // Import Prisma for type
 
 export const sendp2p = async (to: string, amount: number) => {
   const session = await getServerSession(authOptions);
@@ -11,12 +10,12 @@ export const sendp2p = async (to: string, amount: number) => {
 
   if (!to || !amount) {
     return {
-      message: "fields cannot be empty",
+      message: "Fields cannot be empty",
     };
   }
   if (!from) {
     return {
-      message: "error while sending",
+      message: "Error while sending",
     };
   }
 
@@ -28,61 +27,67 @@ export const sendp2p = async (to: string, amount: number) => {
 
   if (!toUser) {
     return {
-      message: "user not found",
-      status: 401,
+      message: "User not found",
+      status: 404,
     };
   }
 
-  const transaction = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
-    await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${Number(from)} FOR UPDATE`;
-    const fromBalance = await tx.balance.findFirst({
-      where: {
-        userId: Number(from),
-      },
-    });
-    if (!fromBalance || fromBalance.amount < amount * 100) {
+  try {
+    const transaction = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+      // Lock the balance for update
+      const fromBalance = await tx.balance.findFirst({
+        where: {
+          userId: Number(from),
+        },
+        lock: { mode: 'UPDATE' }, // Using optimistic concurrency
+      });
+
+      if (!fromBalance || fromBalance.amount < amount * 100) {
+        throw new Error("Insufficient balance");
+      }
+
+      await tx.balance.update({
+        where: {
+          userId: Number(from),
+        },
+        data: {
+          amount: {
+            decrement: amount * 100,
+          },
+        },
+      });
+
+      await tx.balance.update({
+        where: {
+          userId: Number(toUser.id),
+        },
+        data: {
+          amount: {
+            increment: amount * 100,
+          },
+        },
+      });
+
+      await tx.p2pTransfer.create({
+        data: {
+          amount: amount,
+          timestamp: new Date(),
+          fromUserId: Number(from),
+          toUserId: toUser.id,
+        },
+      });
+
       return {
-        message: "insufficient balance",
-        status: 404,
+        message: "Transaction successful",
+        status: 200,
       };
-    }
-
-    await tx.balance.update({
-      where: {
-        userId: Number(from),
-      },
-      data: {
-        amount: {
-          decrement: amount * 100,
-        },
-      },
     });
 
-    await tx.balance.update({
-      where: {
-        userId: Number(toUser.id),
-      },
-      data: {
-        amount: {
-          increment: amount * 100,
-        },
-      },
-    });
-
-    await tx.p2pTransfer.create({
-      data: {
-        amount: amount,
-        timestamp: new Date(),
-        fromUserId: Number(from),
-        toUserId: toUser.id,
-      },
-    });
-
+    return transaction;
+  } catch (error) {
     return {
-      message: "transaction successful",
-      status: 200,
+      message: error.message || "Transaction failed",
+      status: 500,
     };
-  });
-
-  return transaction;
+  }
 };
