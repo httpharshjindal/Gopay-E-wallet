@@ -6,7 +6,7 @@ import prisma from "@repo/db/prisma";
 
 export const getUserData = async () => {
   const session = await getServerSession(authOptions);
-
+  
   const user = await prisma.user.findFirst({
     where: {
       id: Number(session?.user?.id),
