@@ -184,7 +184,7 @@ export const authOptions = {
         if (!existingUser) {
           const newUser = await prisma.user.create({
             data: {
-              name: user.name,
+              name: user.name, 
               email: user.email,
             },
           });
