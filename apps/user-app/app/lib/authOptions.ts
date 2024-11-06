@@ -160,12 +160,12 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET || "secret",
   callbacks: {
     async session({ token, session, user }: any) {
+      console.log(session);
       if (token?.sub) {
         session.user.id = token.sub;
       } else if (user?.id) {
-        session.user.id = user.userId;
+        session.user.userId = user.userId;
       }
-      console.log(session);
       return session;
     },
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
@@ -180,8 +180,10 @@ export const authOptions = {
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email },
         });
+        console.log(existingUser);
         if (existingUser) {
           user.userId = existingUser.id;
+          return true;
         }
         if (!existingUser) {
           const newUser = await prisma.user.create({
