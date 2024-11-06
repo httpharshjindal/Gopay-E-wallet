@@ -160,6 +160,9 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET || "secret",
   callbacks: {
     async session({ token, session, user }: any) {
+      console.log("user",user);
+      console.log("token",token);
+      console.log("session",session);
       session.user.id = user.userId;
       return session;
     },
