@@ -8,7 +8,7 @@ interface userType {
   name: string; // The user's name
   email: string; // The user's email
   image: string; // URL to the user's profile image
-  id: string; // Optional: If the user was found in the database, it may contain their ID
+  id?: string; // Optional: If the user was found in the database, it may contain their ID
 }
 
 export const authOptions = {
