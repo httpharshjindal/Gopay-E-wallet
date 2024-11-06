@@ -4,13 +4,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@repo/db/prisma";
 import bcrypt from "bcrypt";
 
-interface userType {
-  name: string; // The user's name
-  email: string; // The user's email
-  image: string; // URL to the user's profile image
-  id?: string; // Optional: If the user was found in the database, it may contain their ID
-}
-
 export const authOptions = {
   providers: [
     GoogleProvider({
@@ -47,7 +40,7 @@ export const authOptions = {
         },
       },
       async authorize(credentials, req) {
-          console.log("reached to signin credentials");
+        console.log("reached to signin credentials");
         const action = req.body?.action;
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         const phonePattern = /^\d{10}$/;
@@ -179,7 +172,7 @@ export const authOptions = {
       return baseUrl + "/dashboard";
     },
 
-    async signIn({ user, account }: { user: userType; account: any }) {
+    async signIn({ user, account }: any) {
       // Database check or insert goes here
       console.log("reached to signin callback");
       if (account.provider == "google" || account.provider == "github") {
