@@ -18,9 +18,9 @@ export const Profile = ({ userDetails }: { userDetails: any }) => {
           </div>
 
           <div className="flex flex-col justify-start items-center min-h-40 w-full ">
-            <h1 className=" text-xl font-bold mt-14">{userDetails.name}</h1>
+            <h1 className=" text-xl font-bold mt-14">{userDetails.name || "Anonymous"}</h1>
             <h3 className="font-semibold text-zinc-500 text-xs">
-              @{userDetails.number}
+              {userDetails.number || "0000000000"}
             </h3>
             <h3 className="font-semibold text-zinc-500 text-xs  text-center">
               {userDetails.email}

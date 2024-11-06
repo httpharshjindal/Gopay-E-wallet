@@ -5,22 +5,28 @@ import { authOptions } from "../authOptions";
 import prisma from "@repo/db/prisma";
 export const sendp2p = async (to: string, amount: number) => {
   const session = await getServerSession(authOptions);
-  const from = session?.user?.id || session?.user?.userId;
+  const from = session?.user?.id;
 
   if (!to || !amount) {
     return {
-      message: "Fields cannot be empty"
+      message: "Fields cannot be empty",
+      status: 404,
     };
   }
   if (!from) {
     return {
-      message: "Error while sending"
+      message: "Error while sending",
+      status: 404,
     };
   }
 
   const toUser = await prisma.user.findFirst({
     where: {
-      number: to.toString()
+      OR: [
+        { number: to.toString() },
+        { email: to }, // Assuming 'to' can be an email as well
+        { id: parseInt(to.toString()) }, // If 'to' can also be an ID
+      ],
     },
   });
 
@@ -36,7 +42,7 @@ export const sendp2p = async (to: string, amount: number) => {
       // Lock the balance for update
       const fromBalance = await prisma.balance.findFirst({
         where: {
-          userId: Number(from)
+          userId: Number(from),
         },
       });
 
@@ -46,22 +52,22 @@ export const sendp2p = async (to: string, amount: number) => {
 
       await prisma.balance.update({
         where: {
-          userId: Number(from)
+          userId: Number(from),
         },
         data: {
           amount: {
-            decrement: amount * 100
+            decrement: amount * 100,
           },
         },
       });
 
       await prisma.balance.update({
         where: {
-          userId: Number(toUser.id)
+          userId: Number(toUser.id),
         },
         data: {
           amount: {
-            increment: amount * 100
+            increment: amount * 100,
           },
         },
       });
@@ -96,4 +102,3 @@ export const sendp2p = async (to: string, amount: number) => {
     }
   }
 };
-

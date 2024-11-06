@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button } from "./button";
 import { Avtar } from "./avtar";
 
-
 interface AppbarProps {
   user?: {
     name?: string | null;
@@ -33,10 +32,9 @@ export const Appbar = ({
         className="flex flex-col justify-center"
         onClick={() => {
           setProfileDropDown(!ProfileDropDown);
-          console.log(ProfileDropDown);
         }}
       >
-        {user && <Avtar /> }
+        {user && <Avtar />}
       </div>
 
       {ProfileDropDown && (

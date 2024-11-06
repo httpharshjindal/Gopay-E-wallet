@@ -11,11 +11,11 @@ export default async function () {
   return (
     <div className="p-5 w-full ">
       <BoldHeading title="Transfer" />
-      <div className="flex w-full gap-2 h-screen flex-col sm:flex-row">
-        <div className="w-1/2">
+      <div className="flex w-full gap-2 h-screen flex-col sm:flex-row sm:w-full">
+        <div className="w-full sm:1/2">
           <AddMoney />
         </div>
-        <div className="w-1/2 flex gap-2 flex-col">
+        <div className=" w-full sm:w-1/2 flex gap-2 flex-col">
           <BalanceCard amount={balance.amount} locked={balance.locked} />
           <div className="h-1/2">
             <OnRampTransactions transactions={transactions} />

@@ -40,7 +40,6 @@ export const authOptions = {
         },
       },
       async authorize(credentials, req) {
-        console.log("reached to signin credentials");
         const action = req.body?.action;
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         const phonePattern = /^\d{10}$/;

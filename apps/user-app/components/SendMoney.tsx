@@ -7,7 +7,7 @@ import { sendp2p } from "../app/lib/actions/sendp2p";
 import { useRouter } from "next/navigation";
 
 export const SendMoney = () => {
-  const [number, setNumber] = useState("");
+  const [value, setValue] = useState("");
   const [amount, setAmount] = useState(0);
   const router = useRouter();
   return (
@@ -16,10 +16,10 @@ export const SendMoney = () => {
         <Card title="Send Money">
           <div className=" w-full pt-2">
             <TextInput
-              label="Phone"
+              label="Phone/email"
               placeholder="9589856898"
               onChange={(value) => {
-                setNumber(value);
+                setValue(value)
               }}
             />
             <TextInput
@@ -33,7 +33,7 @@ export const SendMoney = () => {
           <div className="pt-4 flex justify-center">
             <Button
               onClick={async () => {
-                const res = await sendp2p(number, Number(amount));
+                const res = await sendp2p(value, Number(amount));
                 alert(res?.message);
                 if (res.status == 404) {
                   router.push("/transfer");
