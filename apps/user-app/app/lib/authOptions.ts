@@ -160,18 +160,17 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET || "secret",
   callbacks: {
     async session({ token, session, user }: any) {
-      console.log(session);
+      console.log("session:", session);
       if (token?.sub) {
         session.user.id = token.sub;
       } else if (user?.id) {
-        session.user.userId = user.userId;
+        session.user.id = user.userId;
       }
       return session;
     },
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
       return baseUrl + "/dashboard";
     },
-
     async signIn({ user, account }: any) {
       // Database check or insert goes here
       console.log("reached to signin callback");
@@ -182,8 +181,7 @@ export const authOptions = {
         });
         console.log(existingUser);
         if (existingUser) {
-          user.userId = existingUser.id;
-          return true;
+          return existingUser.id;
         }
         if (!existingUser) {
           const newUser = await prisma.user.create({
