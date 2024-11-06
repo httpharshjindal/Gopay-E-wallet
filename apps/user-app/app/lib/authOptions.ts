@@ -195,6 +195,10 @@ export const authOptions = {
                 locked: 0,
               },
             });
+            return {
+                id: newUser.id.toString(),
+                email: newUser.email,
+              };
           } catch (e) {}
         }
       }
