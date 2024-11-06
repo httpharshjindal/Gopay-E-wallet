@@ -184,7 +184,7 @@ export const authOptions = {
         if (!existingUser) {
           const newUser = await prisma.user.create({
             data: {
-              name: user.name, 
+              name: user.name,
               email: user.email,
             },
           });
@@ -196,11 +196,10 @@ export const authOptions = {
             },
           });
           console.log(user);
-          return true
+          return true; // Return true to indicate successful sign-in
         }
       }
-
-      return true;
+      return true; // You can also return a URL for redirect if needed
     },
   },
 };
