@@ -180,7 +180,9 @@ export const authOptions = {
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email },
         });
-
+        if (existingUser) {
+          user.userId = existingUser.id;
+        }
         if (!existingUser) {
           const newUser = await prisma.user.create({
             data: {
@@ -195,7 +197,7 @@ export const authOptions = {
               locked: 0,
             },
           });
-          user.userId = newUser.id
+          user.userId = newUser.id;
           console.log(user);
           return true; // Return true to indicate successful sign-in
         }
