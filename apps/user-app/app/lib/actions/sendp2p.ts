@@ -24,8 +24,7 @@ export const sendp2p = async (to: string, amount: number) => {
     where: {
       OR: [
         { number: to.toString() },
-        { email: to }, // Assuming 'to' can be an email as well
-        { id: parseInt(to.toString()) }, // If 'to' can also be an ID
+        { email: to.toString() }, 
       ],
     },
   });

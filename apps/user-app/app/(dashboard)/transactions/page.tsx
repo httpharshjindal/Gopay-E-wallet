@@ -10,7 +10,6 @@ export default async () => {
 
   return (
     <div className="w-full p-5">
-      <h1>{JSON.stringify(session)}</h1>
       <BoldHeading title="Transactions" />
       <P2PTransactions session={session} transactions={transactions} />
     </div>
