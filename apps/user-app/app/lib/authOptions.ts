@@ -161,18 +161,20 @@ export const authOptions = {
   callbacks: {
     async session({ token, session, user }: any) {
       console.log("session:", session);
-      if (token?.sub) {
+      if (token?.userId) {
+        session.user.userId = token.userId;
+      }
+      else if(token?.sub){
         session.user.id = token.sub;
-      } else if (user?.id) {
-        session.user.id = user.userId;
       }
       return session;
     },
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
       return baseUrl + "/dashboard";
     },
-    async signIn({ user, account }: any) {
+    async signIn({ user, account, token }: any) {
       // Database check or insert goes here
+      
       console.log("reached to signin callback");
       if (account.provider == "google" || account.provider == "github") {
         console.log("reached to by google");
@@ -181,7 +183,8 @@ export const authOptions = {
         });
         console.log(existingUser);
         if (existingUser) {
-          return existingUser.id;
+            token.userId = existingUser.id
+            return true
         }
         if (!existingUser) {
           const newUser = await prisma.user.create({
@@ -197,7 +200,7 @@ export const authOptions = {
               locked: 0,
             },
           });
-          user.userId = newUser.id;
+            token.userId = newUser.id;
           console.log(user);
           return true; // Return true to indicate successful sign-in
         }

@@ -5,7 +5,7 @@ import { authOptions } from "../authOptions";
 import prisma from "@repo/db/prisma";
 export const sendp2p = async (to: string, amount: number) => {
   const session = await getServerSession(authOptions);
-  const from = session?.user?.id;
+  const from = session?.user?.id || session?.user?.userId;
 
   if (!to || !amount) {
     return {

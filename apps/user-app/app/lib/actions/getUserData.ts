@@ -9,7 +9,7 @@ export const getUserData = async () => {
   
   const user = await prisma.user.findFirst({
     where: {
-      id: Number(session?.user?.id),
+      id: Number(session?.user?.id || session?.user?.userId),
     },
     include:{
       Balance:true

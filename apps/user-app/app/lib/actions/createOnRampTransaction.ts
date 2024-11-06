@@ -31,7 +31,7 @@ export const createOnRampTransaction = async ({
         provider: provider,
         startTime: new Date(),
         amount: amount * 100,
-        userId: Number(session?.user?.id),
+        userId: Number(session?.user?.id || session?.user?.userId),
       },
     });
     return {
