@@ -160,10 +160,15 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET || "secret",
   callbacks: {
     async session({ token, session, user }: any) {
-      console.log("user",user);
-      console.log("token",token);
-      console.log("session",session);
-      session.user.id = user.userId;
+      console.log("token", token);
+      console.log("session", session);
+      const res = await prisma.user.findFirst({
+        where: {
+          email: session.user.email,
+        },
+      });
+      console.log(res);
+      session.user.id = 32;
       return session;
     },
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
@@ -176,7 +181,6 @@ export const authOptions = {
         });
 
         if (existingUser) {
-          user.userId = 32;
           return true;
         }
         if (!existingUser) {
@@ -193,7 +197,6 @@ export const authOptions = {
               locked: 0,
             },
           });
-          user.userId = 32;
           return true; // Return true to indicate successful sign-in
         }
       }
