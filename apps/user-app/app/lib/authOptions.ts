@@ -47,6 +47,7 @@ export const authOptions = {
         },
       },
       async authorize(credentials, req) {
+          console.log("reached to signin credentials");
         const action = req.body?.action;
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         const phonePattern = /^\d{10}$/;
@@ -180,8 +181,9 @@ export const authOptions = {
 
     async signIn({ user, account }: { user: userType; account: any }) {
       // Database check or insert goes here
-      console.log("reached to signin")
+      console.log("reached to signin callback");
       if (account.provider == "google" || account.provider == "github") {
+        console.log("reached to by google");
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email },
         });

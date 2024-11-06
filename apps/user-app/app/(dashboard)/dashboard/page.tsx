@@ -12,6 +12,7 @@ export default async () => {
 
   return (
     <div className="p-5 gap-2 flex h-screen flex-col sm:flex-row">
+      <h1>{JSON.stringify(session)}</h1>
       <div className="w-full h-full flex flex-col gap-5 sm:w-1/2 "> 
         <UserProfile balance={balance} />
       </div>
