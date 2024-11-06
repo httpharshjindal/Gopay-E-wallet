@@ -196,10 +196,7 @@ export const authOptions = {
             },
           });
           console.log(user);
-          return {
-            id: 32,
-            email: newUser.email,
-          };
+          return true
         }
       }
 
