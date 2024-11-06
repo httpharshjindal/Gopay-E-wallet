@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 interface UserType {
   name: string | null; // Allow name to be null
-  number: string;
+  number: string | null;
 }
 
 interface Transaction {
@@ -44,37 +44,48 @@ export const P2PTransactions = ({
         {transactions.length > 0 ? (
           <div
             className={`pt-2 ${
-              enableScroll ? "h-full overflow-y-scroll bg-gradient-to-t from-slate-300 from-1% to-15%" : ""
+              enableScroll
+                ? "h-full overflow-y-scroll bg-gradient-to-t from-slate-300 from-1% to-15%"
+                : ""
             }`}
           >
-            {(enableScroll ? transactions.slice(0, 8) : transactions).map((t) => (
-              <div key={t.id} className="flex justify-between mb-2 p-2 border-b">
-                <div>
-                  <h2>
-                    {t.fromUserId == session.user.id
-                      ? t.toUser?.name || "Anonymous"
-                      : t.fromUser?.name || "Anonymous"}
-                  </h2>
-                  <h2>
-                    {t.fromUserId == session.user.id
-                      ? t.toUser?.number
-                      : t.fromUser?.number}
-                  </h2>
-                  <div className="text-slate-600 text-xs">
-                    {t.timestamp?.toDateString()}
+            {(enableScroll ? transactions.slice(0, 8) : transactions).map(
+              (t) => (
+                <div
+                  key={t.id}
+                  className="flex justify-between mb-2 p-2 border-b"
+                >
+                  <div>
+                    <h2>
+                      {t.fromUserId == session.user.id
+                        ? t.toUser?.name || "Anonymous"
+                        : t.fromUser?.name || "Anonymous"}
+                    </h2>
+                    <h2>
+                      {t.fromUserId == session.user.id
+                        ? t.toUser?.number
+                        : t.fromUser?.number}
+                    </h2>
+                    <div className="text-slate-600 text-xs">
+                      {t.timestamp?.toDateString()}
+                    </div>
+                  </div>
+                  <div className="flex flex-col justify-center items-end">
+                    <div
+                      className={`text-xl ${
+                        t.fromUserId == session.user.id
+                          ? "text-red-700"
+                          : "text-green-600"
+                      }`}
+                    >
+                      {t.fromUserId == session.user.id
+                        ? `- Rs ${t.amount}`
+                        : `+ Rs ${t.amount}`}
+                    </div>
                   </div>
                 </div>
-                <div className="flex flex-col justify-center items-end">
-                  <div
-                    className={`text-xl ${
-                      t.fromUserId == session.user.id ? "text-red-700" : "text-green-600"
-                    }`}
-                  >
-                    {t.fromUserId == session.user.id ? `- Rs ${t.amount}` : `+ Rs ${t.amount}`}
-                  </div>
-                </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
         ) : (
           <div className="flex justify-center">No Transactions Found</div>

@@ -171,6 +171,7 @@ export const authOptions = {
       } else if (user?.id) {
         session.user.id = user.id;
       }
+      console.log(session);
       return session;
     },
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
@@ -198,8 +199,9 @@ export const authOptions = {
               locked: 0,
             },
           });
+          console.log(user);
           return {
-            id: newUser.id.toString(),
+            id: 32,
             email: newUser.email,
           };
         }
