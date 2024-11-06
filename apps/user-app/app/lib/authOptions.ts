@@ -165,8 +165,12 @@ export const authOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET || "secret",
   callbacks: {
-    async session({ token, session }: any) {
-      session.user.id = token.sub;
+    async session({ token, session, user }: any) {
+      if (token?.sub) {
+        session.user.id = token.sub;
+      } else if (user?.id) {
+        session.user.id = user.id;
+      }
       return session;
     },
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
@@ -181,23 +185,23 @@ export const authOptions = {
         });
 
         if (!existingUser) {
-            const newUser = await prisma.user.create({
-              data: {
-                name: user.name,
-                email: user.email,
-              },
-            });
-            await prisma.balance.create({
-              data: {
-                userId: newUser.id,
-                amount: 500000,
-                locked: 0,
-              },
-            });
-            return {
-                id: newUser.id.toString(),
-                email: newUser.email,
-              };
+          const newUser = await prisma.user.create({
+            data: {
+              name: user.name,
+              email: user.email,
+            },
+          });
+          await prisma.balance.create({
+            data: {
+              userId: newUser.id,
+              amount: 500000,
+              locked: 0,
+            },
+          });
+          return {
+            id: newUser.id.toString(),
+            email: newUser.email,
+          };
         }
       }
 
