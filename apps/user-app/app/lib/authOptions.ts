@@ -163,7 +163,7 @@ export const authOptions = {
       if (token?.sub) {
         session.user.id = token.sub;
       } else if (user?.id) {
-        session.user.id = user.id;
+        session.user.id = user.userId;
       }
       console.log(session);
       return session;
@@ -195,6 +195,7 @@ export const authOptions = {
               locked: 0,
             },
           });
+          user.userId = newUser.id
           console.log(user);
           return true; // Return true to indicate successful sign-in
         }
