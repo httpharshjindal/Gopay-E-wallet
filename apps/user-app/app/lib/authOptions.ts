@@ -181,7 +181,6 @@ export const authOptions = {
         });
 
         if (!existingUser) {
-          try {
             const newUser = await prisma.user.create({
               data: {
                 name: user.name,
@@ -199,7 +198,6 @@ export const authOptions = {
                 id: newUser.id.toString(),
                 email: newUser.email,
               };
-          } catch (e) {}
         }
       }
 
