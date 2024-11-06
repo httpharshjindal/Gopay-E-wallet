@@ -8,7 +8,7 @@ export async function getp2pTransactions() {
 
   const transactions = await prisma.user.findUnique({
     where: {
-      id: Number(session?.user?.id || session?.user?.userId),
+      id: Number(session?.user?.id),
     },
     include: {
       sentTransfers: {

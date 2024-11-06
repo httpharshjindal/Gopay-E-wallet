@@ -160,31 +160,21 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET || "secret",
   callbacks: {
     async session({ token, session, user }: any) {
-      console.log("session:", session);
-      if (token?.userId) {
-        session.user.userId = token.userId;
-      }
-      else if(token?.sub){
-        session.user.id = token.sub;
-      }
+      session.user.id = user.userId;
       return session;
     },
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
       return baseUrl + "/dashboard";
     },
     async signIn({ user, account, token }: any) {
-      // Database check or insert goes here
-      
-      console.log("reached to signin callback");
       if (account.provider == "google" || account.provider == "github") {
-        console.log("reached to by google");
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email },
         });
-        console.log(existingUser);
+
         if (existingUser) {
-            token.userId = existingUser.id
-            return true
+          user.userId = 32;
+          return true;
         }
         if (!existingUser) {
           const newUser = await prisma.user.create({
@@ -200,8 +190,7 @@ export const authOptions = {
               locked: 0,
             },
           });
-            token.userId = newUser.id;
-          console.log(user);
+          user.userId = 32;
           return true; // Return true to indicate successful sign-in
         }
       }
