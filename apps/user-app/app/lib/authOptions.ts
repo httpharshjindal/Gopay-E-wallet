@@ -180,7 +180,8 @@ export const authOptions = {
 
     async signIn({ user, account }: { user: userType; account: any }) {
       // Database check or insert goes here
-      if (account.provider === "google" || account.provider === "github") {
+      console.log("reached to signin")
+      if (account.provider == "google" || account.provider == "github") {
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email },
         });
