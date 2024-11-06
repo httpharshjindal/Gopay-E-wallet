@@ -160,15 +160,14 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET || "secret",
   callbacks: {
     async session({ token, session, user }: any) {
-      console.log("token", token);
-      console.log("session", session);
       const res = await prisma.user.findFirst({
         where: {
           email: session.user.email,
         },
       });
-      console.log(res);
-      session.user.id = 32;
+      if (res) {
+        session.user.id = res.id;
+      }
       return session;
     },
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
