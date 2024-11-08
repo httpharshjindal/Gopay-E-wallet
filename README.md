@@ -1,81 +1,88 @@
-# Turborepo starter
+![5](https://github.com/user-attachments/assets/5761db59-a6a1-47b7-9024-9a84b9a2cd52)
+![4](https://github.com/user-attachments/assets/f4300ac4-7508-4a10-81d6-4680faf12d1f)
+![3](https://github.com/user-attachments/assets/a1c90dfe-f114-46d5-a4f9-1c016c3eab67)
+![2](https://github.com/user-attachments/assets/bafbe0a9-cda4-487b-9c22-2a523a529929)
+![1](https://github.com/user-attachments/assets/5b0f80be-59ad-450f-9fc7-7d12ebccb5e5)
 
-This is an official starter Turborepo.
 
-## Using this example
+# Digital E-Wallet 💸
 
-Run the following command:
+A full-stack digital wallet application built to simulate the experience of managing funds, tracking expenses, and transferring money. Users can add money to their wallets from their bank accounts, view real-time wallet balances, access transaction history, and securely manage their funds. 
 
-```sh
-npx create-turbo@latest
-```
+Deployed live on [Vercel](https://vercel.com/) for easy access and seamless performance.
 
-## What's inside?
+## 🚀 Features
 
-This Turborepo includes the following packages/apps:
+- **Add Funds**: Securely transfer funds from a bank account to the wallet.
+- **Spend & Transfer**: Make payments and manage transfers directly from the wallet balance.
+- **Balance Overview**: Instantly see current balance after every transaction.
+- **Transaction History**: Detailed history of all transactions including date, amount, and type (credit/debit).
+- **Authentication & Security**: Secure login and transactions with JWT.
+- **Responsive UI**: Optimized for mobile and desktop, ensuring a smooth user experience.
+- **Real-time Updates**: React and Next.js provide fast and dynamic updates on all interactions.
 
-### Apps and Packages
+## 🛠️ Tech Stack
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- **Frontend**: [Next.js](https://nextjs.org/) with [React](https://reactjs.org/)
+- **Backend**: [Prisma](https://www.prisma.io/) ORM to manage database queries and schema
+- **Database**: [PostgreSQL](https://www.postgresql.org/) for reliable and efficient data storage
+- **Deployment**: Hosted on [Vercel](https://vercel.com/), allowing for seamless continuous integration and delivery
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-### Utilities
+## 🔑 Key Features
 
-This Turborepo has some additional tools already setup for you:
+- **Seamless Money Transfer**: Add or withdraw funds effortlessly from your account to your digital wallet.
+- **Transaction Analytics**: Get detailed transaction records to keep track of expenses and deposits.
+- **User Authentication**: Secure login to protect user data, powered by JWT.
+- **Scalable & Modular Codebase**: Designed to accommodate new features and enhancements.
+- **Optimized Performance**: Uses the power of Vercel for blazing-fast deployments and Prisma ORM for efficient database operations.
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## ⚙️ Setup & Installation
 
-### Build
+1. **Clone the Repository**
 
-To build all apps and packages, run the following command:
+    ```bash
+    git clone https://github.com/yourusername/digital-e-wallet.git
+    cd digital-e-wallet
+    ```
 
-```
-cd my-turborepo
-pnpm build
-```
+2. **Install Dependencies**
 
-### Develop
+    ```bash
+    npm install
+    ```
 
-To develop all apps and packages, run the following command:
+3. **Set Up Environment Variables**
 
-```
-cd my-turborepo
-pnpm dev
-```
+    Create a `.env` file and add the following variables:
 
-### Remote Caching
+    ```env
+    DATABASE_URL=your_postgres_database_url
+    JWT_SECRET=your_jwt_secret_key
+    ```
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+4. **Run Database Migrations**
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+    ```bash
+    npx prisma migrate dev
+    ```
 
-```
-cd my-turborepo
-npx turbo login
-```
+5. **Start the Application**
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+    ```bash
+    npm run dev
+    ```
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+6. **Deploy on Vercel**
 
-```
-npx turbo link
-```
+    - For live deployment, connect the repository to Vercel, and ensure the environment variables are set up in Vercel’s dashboard.
 
-## Useful Links
+## 📄 License
 
-Learn more about the power of Turborepo:
+This project is open source and available under the [MIT License](./LICENSE).
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## 🙏 Acknowledgments
+
+- Thanks to [Prisma](https://www.prisma.io/) and [Next.js](https://nextjs.org/) for providing great tools for web development.
+- Inspiration for digital wallet management.
+
